@@ -44,5 +44,5 @@ jobs:
       - name: install helm chart
         uses: WyriHaximus/github-action-helm3@v2
         with:
-          exec: helm upgrade bern-frontend . --install --namespace=timhatdiehandandermaus --atomic
+          exec: helm upgrade bern-frontend . --install --namespace=abfahrt --atomic
           kubeconfig: ${{ secrets.KUBECONFIG_RAW }}
