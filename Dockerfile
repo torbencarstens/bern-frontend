@@ -20,6 +20,5 @@ RUN pip install --user -r requirements.txt
 
 ADD flask_templates /usr/app/flask_templates
 ADD app.py /usr/app/app.py
-ADD config.py /usr/app/config.py
 
 CMD ["/home/launcher/.local/bin/uwsgi", "--http",  "0.0.0.0:5000", "--module", "app:app", "--uid", "1001", "--enable-threads"]
