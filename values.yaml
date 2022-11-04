@@ -1,0 +1,38 @@
+namespace: abfahrt
+
+deployment:
+  name: bern-frontend
+  image: ghcr.io/torbencarstens/bern-frontend:__TAG__
+  imagePullPolicy: IfNotPresent
+  revisionHistoryLimit: 1
+  replicas: 2
+  ports:
+  - 5000
+  labels:
+    app: bern-frontend
+  requests:
+    cpu: 50m
+    memory: 10Mi
+  limit:
+    cpu: 300m
+    memory: 50Mi
+  healthEndpoint: /health
+
+service:
+  name: bern-frontend
+  port: 80
+  targetPort: 5000
+  appSelector: bern-frontend
+
+ingress:
+  secret: tls-bern-frontend
+  issuer: letsencrypt-issuer
+  name: bern-frontend
+  frontend:
+    hosts:
+      - bern.bus.timhatdiehandandermaus.consulting
+      - abfahrt.io
+      - bern.abfahrt.io
+
+configmap:
+  name: bern-frontend
