@@ -1,4 +1,5 @@
 *.json
+!renovate.json
 
 __pycache__
 venv
