@@ -31,7 +31,6 @@ ingress:
   frontend:
     hosts:
       - bern.bus.timhatdiehandandermaus.consulting
-      - abfahrt.io
       - bern.abfahrt.io
 
 configmap:
