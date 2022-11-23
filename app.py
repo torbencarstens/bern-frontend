@@ -73,7 +73,8 @@ def search():
 @app.route("/", defaults={"station_id": "8590010"}, methods=["GET"])
 @app.route("/station_id", methods=["GET"])
 def index(station_id: str):
-    stationboard: Stationboard = get_stationboard(station_id=station_id)
+    limit = request.args.get("limit", 10)
+    stationboard: Stationboard = get_stationboard(station_id=station_id, limit=limit)
     # handle error appropriately
     if not stationboard:
         abort(404)
