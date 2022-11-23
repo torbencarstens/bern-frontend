@@ -65,6 +65,10 @@ def search():
     if not data:
         abort(500)
 
+    if len(data.stations) == 1:
+        url = f"/{data.stations[0].id}"
+        return flask.redirect(url, code=302)
+
     response = flask.Response(data.to_json())
     response.headers["Content-Type"] = "application/json"
     return response
