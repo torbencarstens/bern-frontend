@@ -1,5 +1,6 @@
 import sys
 import time
+import urllib.parse
 from functools import lru_cache
 from typing import Optional, List
 
@@ -27,6 +28,13 @@ def get(endpoint: str, *, base_url: str = "https://transport.opendata.ch", api_v
 def search_location(query: Optional[str], point: Optional[Point], _type: QueryType = QueryType.ALL) \
         -> Optional[List[Station]]:
     location_query = "?"
+
+    if _type:
+        # noinspection PyTypeChecker
+        # .value is correct for getting the value from an enum instance, it's not of type `() -> Any`
+        _type = urllib.parse.quote_plus(_type.value)
+        location_query += f"type={_type}&"
+
     if query:
         query = urllib.parse.quote_plus(query)
         location_query += f"query={query}"
@@ -35,13 +43,13 @@ def search_location(query: Optional[str], point: Optional[Point], _type: QueryTy
     if location_query == "?":
         raise ValueError("search_location requires either `query` or `point` to be passed")
 
-    if _type:
-        location_query += f"&type={_type}"
-
     endpoint = "locations" + location_query
+
     response = get(endpoint, ttl_hash=get_ttl_hash())
     if response.ok:
         return LocationSearchResponse.from_json(response.text)
+    else:
+        print(f"failed to retrieve from backend: {response.text}", file=sys.stderr)
 
 
 def get_stationboard(station_id: str, limit: int = 10) -> Optional[Stationboard]:
