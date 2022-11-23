@@ -70,12 +70,12 @@ class PassListItem(Stop):
 @dataclass
 class StationboardItem:
     stop: Stop
-    name: str
     category: str
     number: str
     operator: str
     to: str
     pass_list: List[PassListItem]
+    name: Optional[str] = None
     subcategory: Optional[str] = None
     category_code: Optional[str] = None
     capacity1st: Optional[str] = None
