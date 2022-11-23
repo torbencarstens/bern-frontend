@@ -1,3 +1,4 @@
+import sys
 import time
 from functools import lru_cache
 from typing import Optional, List
@@ -27,6 +28,7 @@ def search_location(query: Optional[str], point: Optional[Point], _type: QueryTy
         -> Optional[List[Station]]:
     location_query = "?"
     if query:
+        query = urllib.parse.quote_plus(query)
         location_query += f"query={query}"
     elif point:
         location_query += f"x={point.x}&y={point.y}"
