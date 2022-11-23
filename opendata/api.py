@@ -42,8 +42,8 @@ def search_location(query: Optional[str], point: Optional[Point], _type: QueryTy
         return LocationSearchResponse.from_json(response.text)
 
 
-def get_stationboard(station_id: str) -> Optional[Stationboard]:
-    endpoint = f"stationboard?id={station_id}"
+def get_stationboard(station_id: str, limit: int = 10) -> Optional[Stationboard]:
+    endpoint = f"stationboard?id={station_id}&limit={limit}"
     response = get(endpoint, ttl_hash=get_ttl_hash())
     if response.ok:
         board = Stationboard.from_json(response.text)
