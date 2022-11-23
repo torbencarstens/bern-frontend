@@ -18,8 +18,8 @@ class Coordinate:
 @dataclass_json(letter_case=LetterCase.CAMEL)
 @dataclass
 class Station:
-    id: str
     coordinate: Coordinate
+    id: Optional[str] = None
     name: Optional[str] = None
     score: Optional[str] = None
     distance: Optional[str] = None
