@@ -30,7 +30,6 @@ ingress:
   name: bern-frontend
   frontend:
     hosts:
-      - bern.bus.timhatdiehandandermaus.consulting
       - bern.abfahrt.io
 
 configmap:
